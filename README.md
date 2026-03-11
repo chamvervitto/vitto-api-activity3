@@ -21,3 +21,4 @@ Screenshot of a successful GET request:
 ![Successful GET Request]([http://localhost:3000/api/v1/dishes])
 Sent
 Write to
+# vitto-api-activity2
