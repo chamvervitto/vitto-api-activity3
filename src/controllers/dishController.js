@@ -83,7 +83,7 @@ const createDish = async (req, res) => {
             });
         }
         
-        const { name, price, category, isVegetarian } = req.body;
+        const { name, price, category, isVegetarian, chef } = req.body;
 
         // Validation: Check if required fields are missing
         if (!name || !price || !category) {
@@ -106,7 +106,8 @@ const createDish = async (req, res) => {
             name,
             price,
             category,
-            isVegetarian: isVegetarian || false
+            isVegetarian: isVegetarian || false,
+            chef: chef || null
         });
 
         return res.status(201).json({
@@ -133,10 +134,10 @@ const updateDish = async (req, res) => {
             });
         }
 
-        const { name, price, category, isVegetarian } = req.body;
+        const { name, price, category, isVegetarian, reviews, chef } = req.body;
 
         // Validation: Check if at least one field is provided
-        if (!name && !price && !category && isVegetarian === undefined) {
+        if (!name && !price && !category && isVegetarian === undefined && !reviews && !chef) {
             return res.status(400).json({
                 status: 400,
                 message: 'Bad Request: At least one field is required to update',
@@ -149,6 +150,8 @@ const updateDish = async (req, res) => {
         if (price) updateData.price = price;
         if (category) updateData.category = category;
         if (isVegetarian !== undefined) updateData.isVegetarian = isVegetarian;
+        if (reviews) updateData.reviews = reviews;
+        if (chef) updateData.chef = chef;
 
         const updatedDish = await Dish.findByIdAndUpdate(
             req.params.id,

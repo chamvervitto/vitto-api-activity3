@@ -10,6 +10,8 @@ const {
     deleteDish
 } = require('../controllers/dishController');
 
+const { createChef } = require('../controllers/chefController');
+
 // 0. GET (Base route) - Welcome message
 router.get('/', (req, res) => {
     res.json({ message: 'Welcome to the Vitto API!' });
@@ -23,6 +25,9 @@ router.get('/dishes/:id', getDishById);
 
 // 3. POST (Create) - Create a new dish
 router.post('/dishes', createDish);
+
+// 3.1 POST (Create) - Create a new chef
+router.post('/chefs', createChef);
 
 // 4. PUT (Update Full Resource) - Update a dish by ID
 router.put('/dishes/:id', updateDish);
